@@ -1,2 +1,9 @@
 [websphere_servers]
 cnx-was.stoeps.internal ansible_host=10.0.11.100
+
+[web_servers]
+cnx-web.stoeps.internal ansible_host=10.0.11.101
+
+[installationmanager:children]
+web_servers
+websphere_servers
