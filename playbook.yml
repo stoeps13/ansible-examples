@@ -22,8 +22,32 @@
 
     - name: install compatibility package for installation manager
       package:
-        name: compat-libstdc++-33.x86_64
+        name: "{{ item }}"
         state: present
+      with_items:
+        - compat-libstdc++-33.x86_64
+        - compat-libstdc++-33.i686
+        - libstdc++.x86_64
+        - compat-db.x86_64
+        - libXp.i686
+        - libXp.x86_64
+        - pango
+        - xorg-x11-fonts-Type1
+        - webkitgtk3
+        - gtk2
+        - libXtst
+        - libcanberra-gtk2.i686 
+        - libcanberra-gtk2.x86_64 
+        - libcanberra.i686 
+        - libcanberra.x86_64 
+        - libstdc++.i686 
+        - libstdc++.x86_64
+        - libXp.i686 
+        - libXp.x86_64 
+        - libXpm.i686 
+        - libXpm.x86_64 
+        - libXmu.i686 
+        - libXmu.x86_64 
       
   handlers:
     - name: reboot
