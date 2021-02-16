@@ -60,4 +60,19 @@
         - libXpm.x86_64 
         - libXmu.i686 
         - libXmu.x86_64 
+
+    - name: add group for WebSphere users
+      group:
+        name: was
+        state: present
       
+    - name: add user for im and websphere (non_root)
+      user:
+        name: wassys
+        comment: WebSphere user
+        uid: 2000
+        group: was
+        shell: /bin/bash
+        state: present
+        password: "$6$40GE6/6h6A4UhpBT$kPtpBLe3Komc2bmadagr6S.v0/VRPJoJunEaMl5PBhAb4F5FTWsZff/6CYtTQlVm8Qa2wya4HVLM.Xp4iluLL0"
+
