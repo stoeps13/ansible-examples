@@ -36,13 +36,13 @@
     state: present
   
 - name: hash user password
-  shell: "python -c \"import crypt; print crypt.crypt('{{ was_user_password }}')\"" 
+  shell: "python -c \"import crypt; print crypt.crypt('{{ __websphere_user_password }}')\"" 
   register: was_user_password_hash
   changed_when: false
 
 - name: add user for im and websphere (non_root)
   user:
-    name: "{{ was_user }}"
+    name: "{{ __websphere_user }}"
     comment: WebSphere user
     uid: 2000
     group: was

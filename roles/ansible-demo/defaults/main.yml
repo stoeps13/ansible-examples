@@ -1,4 +1,4 @@
 ---
 # defaults file for ansible-demo
-__websphere_user: "{{ was_user | default('wassys') }}"
-__websphere_user_password: "{{ was_user_password | default('password')"
+__websphere_user: "{{ websphere_user | default('wassys') }}"
+__websphere_user_password: "{{ websphere_user_password | default('password') }}"

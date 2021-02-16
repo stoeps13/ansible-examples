@@ -8,6 +8,3 @@ cnx-web.stoeps.internal ansible_host=10.0.11.101
 web_servers
 websphere_servers
 
-[installationmanager:vars]
-was_user=wassys
-was_user_password=password
