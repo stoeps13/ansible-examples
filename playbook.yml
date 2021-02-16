@@ -7,3 +7,7 @@
       selinux:
         policy: targeted
         state: permissive
+      register: selinux_status
+    - debug:
+        msg: "SELinux changed. Please reboot"
+      when: selinux_status.changed == true
