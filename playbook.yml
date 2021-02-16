@@ -66,13 +66,19 @@
         name: was
         state: present
       
+    - name: hash user password
+      shell: "python -c \"import crypt; print crypt.crypt('{{ was_user_password }}')\"" 
+      register: was_user_password_hash
+      changed_when: false
+
     - name: add user for im and websphere (non_root)
       user:
-        name: wassys
+        name: "{{ was_user }}"
         comment: WebSphere user
         uid: 2000
         group: was
         shell: /bin/bash
         state: present
-        password: "$6$40GE6/6h6A4UhpBT$kPtpBLe3Komc2bmadagr6S.v0/VRPJoJunEaMl5PBhAb4F5FTWsZff/6CYtTQlVm8Qa2wya4HVLM.Xp4iluLL0"
+        update_password: on_create
+        password: "{{ was_user_password_hash.stdout }}"
 
