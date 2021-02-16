@@ -8,6 +8,15 @@
         policy: targeted
         state: permissive
       notify: reboot
+
+    - name: set number of open files in limits.conf
+      pam_limits:
+        domain: root
+        limit_type: '-'
+        limit_item: nofile
+        value: "65535"
+      notify: reboot selinux 
+      
   handlers:
     - name: reboot
       reboot:
