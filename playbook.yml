@@ -2,83 +2,12 @@
 - hosts: websphere_servers
   become: yes        
   become_user: root 
-  tasks:
-    - name: ensure selinux is set to permissive
-      selinux:
-        policy: targeted
-        state: permissive
-      notify: reboot
-
-    - name: set number of open files in limits.conf
-      pam_limits:
-        domain: root
-        limit_type: '-'
-        limit_item: nofile
-        value: "65535"
-      notify: reboot selinux 
-
-    - name: Reboot if necessary
-      meta: flush_handlers
-
-  handlers:
-    - name: reboot
-      reboot:
-        msg: "Reboot initiated from Ansible"
-        connect_timeout: 30
-        reboot_timeout: 120
-        test_command: whoami
-
+  roles: 
+    - ansible-demo2
+  
 - hosts: installationmanager
   become: yes
   become_user: root
-  tasks:
-    - name: install compatibility package for installation manager
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - compat-libstdc++-33.x86_64
-        - compat-libstdc++-33.i686
-        - libstdc++.x86_64
-        - compat-db.x86_64
-        - libXp.i686
-        - libXp.x86_64
-        - pango
-        - xorg-x11-fonts-Type1
-        - webkitgtk3
-        - gtk2
-        - libXtst
-        - libcanberra-gtk2.i686 
-        - libcanberra-gtk2.x86_64 
-        - libcanberra.i686 
-        - libcanberra.x86_64 
-        - libstdc++.i686 
-        - libstdc++.x86_64
-        - libXp.i686 
-        - libXp.x86_64 
-        - libXpm.i686 
-        - libXpm.x86_64 
-        - libXmu.i686 
-        - libXmu.x86_64 
-
-    - name: add group for WebSphere users
-      group:
-        name: was
-        state: present
-      
-    - name: hash user password
-      shell: "python -c \"import crypt; print crypt.crypt('{{ was_user_password }}')\"" 
-      register: was_user_password_hash
-      changed_when: false
-
-    - name: add user for im and websphere (non_root)
-      user:
-        name: "{{ was_user }}"
-        comment: WebSphere user
-        uid: 2000
-        group: was
-        shell: /bin/bash
-        state: present
-        update_password: on_create
-        password: "{{ was_user_password_hash.stdout }}"
+  roles:
+    - ansible-demo
 
