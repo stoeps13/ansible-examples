@@ -1,0 +1,18 @@
+---
+# tasks file for ansible-demo2
+- name: ensure selinux is set to permissive
+  selinux:
+    policy: targeted
+    state: permissive
+  notify: reboot
+
+- name: set number of open files in limits.conf
+  pam_limits:
+    domain: root
+    limit_type: '-'
+    limit_item: nofile
+    value: "65535"
+  notify: reboot selinux 
+
+- name: Reboot if necessary
+  meta: flush_handlers
