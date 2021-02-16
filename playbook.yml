@@ -16,6 +16,14 @@
         limit_item: nofile
         value: "65535"
       notify: reboot selinux 
+
+    - name: Reboot if necessary
+      meta: flush_handlers
+
+    - name: install compatibility package for installation manager
+      package:
+        name: compat-libstdc++-33.x86_64
+        state: present
       
   handlers:
     - name: reboot
