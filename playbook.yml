@@ -7,11 +7,11 @@
       selinux:
         policy: targeted
         state: permissive
-      register: selinux_status
-    - name: reboot server if status of selinux changed.
+      notify: reboot
+  handlers:
+    - name: reboot
       reboot:
         msg: "Reboot initiated from Ansible"
         connect_timeout: 30
         reboot_timeout: 120
         test_command: whoami
-      when: selinux_status.changed == true
