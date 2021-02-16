@@ -20,6 +20,18 @@
     - name: Reboot if necessary
       meta: flush_handlers
 
+  handlers:
+    - name: reboot
+      reboot:
+        msg: "Reboot initiated from Ansible"
+        connect_timeout: 30
+        reboot_timeout: 120
+        test_command: whoami
+
+- hosts: installationmanager
+  become: yes
+  become_user: root
+  tasks:
     - name: install compatibility package for installation manager
       package:
         name: "{{ item }}"
@@ -49,10 +61,3 @@
         - libXmu.i686 
         - libXmu.x86_64 
       
-  handlers:
-    - name: reboot
-      reboot:
-        msg: "Reboot initiated from Ansible"
-        connect_timeout: 30
-        reboot_timeout: 120
-        test_command: whoami
