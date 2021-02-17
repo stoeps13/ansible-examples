@@ -12,7 +12,7 @@
     limit_type: '-'
     limit_item: nofile
     value: "65535"
-  notify: reboot selinux 
+  notify: reboot
 
 - name: Reboot if necessary
   meta: flush_handlers
