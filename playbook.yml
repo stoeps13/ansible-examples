@@ -20,7 +20,7 @@
     - name: Reboot if necessary
       meta: flush_handlers
 
-    - name: install compatibility package for installation manager
+    - name: install compatibility packages for installation manager
       package:
         name: "{{ item }}"
         state: present
